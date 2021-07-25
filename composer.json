@@ -1,0 +1,27 @@
+{
+    "name": "izisoft/izi-framework-app-basic",
+    "description": "IZI Framework with basic template",
+    "type": "project",
+    "license": "BSD-3-Clause",
+    "homepage": "https://framework.iziweb.net",
+    "keywords": [
+        "mvc framework",
+        "izi framework"
+    ],
+    "authors": [
+        {
+            "name": "Giang A Tin",
+            "email": "vantruong1898@gmail.com",
+            "role": "Founder and project lead"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "app\\": "./"
+        }
+    },
+    "require": {
+        "vlucas/phpdotenv": "^5.3",
+        "izisoft/izi-framework": "dev-master"
+    }
+}

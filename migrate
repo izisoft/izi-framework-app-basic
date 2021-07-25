@@ -1,0 +1,34 @@
+<?php
+/**
+ * @link https://framework.iziweb.net
+ * @copyright Copyright (c) 2021 Izi Software LLC
+ * @license https://framework.iziweb.net/license
+ */
+
+/**
+ * @author Giang A Tin <vantruong1898@gmail.com>
+ * @since 1.0
+ */
+use app\controllers\AuthController;
+use app\controllers\SiteController;
+use izi\base\Application;
+
+@ini_set('display_startup_errors',1);
+@ini_set('display_errors',1);
+
+$rootPath = __DIR__;
+require_once $rootPath . '/vendor/autoload.php';
+$dotenv = Dotenv\Dotenv::createImmutable($rootPath);
+$dotenv->load();
+
+
+$config = [
+    'db' => [
+        'dsn' => $_ENV['DB_DSN'],
+        'user' => $_ENV['DB_USER'],
+        'password' => $_ENV['DB_PASSWORD'],
+    ]
+];
+
+$app = new Application($rootPath, $config);
+$app->db->applyMigrations();
