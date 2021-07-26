@@ -9,7 +9,6 @@
  * @since 1.0
  */
 
-use izi\base\Application;
 
 ?>
 <!doctype html>
@@ -41,7 +40,7 @@ use izi\base\Application;
                 </li>
 
             </ul>
-<?php if(Application::isGuest()):?>
+<?php if(Izi::$app->isGuest()):?>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
                     <a class="nav-link" href="/login">Login</a>
@@ -57,7 +56,7 @@ use izi\base\Application;
                     <a class="nav-link" href="/profile">Profile</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link">Welcome: <?=Application::$app->user->getDisplayName()?></a>
+                    <a class="nav-link">Welcome:  </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/logout">(Logout)</a>
@@ -71,10 +70,10 @@ use izi\base\Application;
 
 <div class="container">
     <?php
-    if(Application::$app->session->getFlash('success')):
+    if(Izi::$app->session->getFlash('success')):
     ?>
         <div class="alert alert-success"><?php
-        echo Application::$app->session->getFlash('success');
+        echo Izi::$app->session->getFlash('success');
         ?></div>
     <?php
     endif;

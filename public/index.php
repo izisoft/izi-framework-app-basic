@@ -11,7 +11,7 @@
  */
 use app\controllers\AuthController;
 use app\controllers\SiteController;
-use izi\base\Application;
+use izi\web\Application;
 use \app\models\User;
 
 @ini_set('display_startup_errors',1);
@@ -19,24 +19,45 @@ use \app\models\User;
 
 $rootPath = dirname(__DIR__);
 require_once $rootPath . '/vendor/autoload.php';
+require_once $rootPath . '/vendor/izisoft/izi-framework/Izi.php';
+require_once $rootPath . '/app/helpers/help.php';
+//require __DIR__ . '/../../common/config/bootstrap.php';
+require $rootPath . '/app/config/bootstrap.php';
 
 $dotenv = Dotenv\Dotenv::createImmutable($rootPath);
 $dotenv->load();
 
+//$config = izi\helpers\ArrayHelper::merge(
+//    require $rootPath . '/../../common/config/main.php',
+//    require __DIR__ . '/../../common/config/main-local.php',
+$config =  require $rootPath . '/app/config/main.php';
+//    require __DIR__ . '/../config/main-local.php'
+//);
 
-$config = [
-    'user' => [
-        'class' => User::class
-    ],
-    'db' => [
-      'dsn' => $_ENV['DB_DSN'],
-      'user' => $_ENV['DB_USER'],
-      'password' => $_ENV['DB_PASSWORD'],
-]
-];
 
-$app = new Application($rootPath, $config);
 
+//$config = [
+//    'user' => [
+//        'class' => User::class
+//    ],
+//    'db' => [
+//      'dsn' => $_ENV['DB_DSN'],
+//      'user' => $_ENV['DB_USER'],
+//      'password' => $_ENV['DB_PASSWORD'],
+//]
+//];
+
+//$config['rootPath'] = $rootPath;
+
+$app = new Application($config);
+
+\izi\base\Event::on(Application::EVENT_BEFORE_REQUEST,Application::EVENT_BEFORE_REQUEST, function (){
+    echo "Before request";
+});
+
+$app->on(Application::EVENT_BEFORE_REQUEST, function (){
+    echo "Before request 22";
+});
 
 
 $app->router->get('/', [SiteController::class, 'home']);

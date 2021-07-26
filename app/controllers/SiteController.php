@@ -7,9 +7,10 @@
 
 namespace app\controllers;
 
-use izi\base\Application;
-use izi\base\Request;
-use izi\base\Response;
+use app\events\ContactEvent;
+use Izi;
+use izi\web\Request;
+use izi\web\Response;
 use app\models\ContactForm;
 
 /**
@@ -21,6 +22,8 @@ use app\models\ContactForm;
  */
 class SiteController extends Controller
 {
+//    const EVENT_CONTACT = 'contact';
+
     public function home()
     {
         $params = [
@@ -31,12 +34,20 @@ class SiteController extends Controller
 
     public function contact(Request $request, Response $response)
     {
+//        $event = new ContactEvent();
+//        $event->message = 'ABC';
+//
+//        $this->on(self::EVENT_CONTACT, 'testEvent', 'Hey');
+//        $this->trigger(self::EVENT_CONTACT, $event);
+//        $this->off(self::EVENT_CONTACT);
+
+
         $contact = new ContactForm();
         $errors = [];
         if($request->isPost()){
             $contact->loadData($request->getBody());
             if($contact->validate() && $contact->send()){
-                Application::$app->session->setFlash('success', 'Thank for contacted us!');
+                Izi::$app->session->setFlash('success', 'Thank for contacted us!');
                 $response->redirect('/contact');
             }
         }
@@ -48,4 +59,8 @@ class SiteController extends Controller
     }
 
 
+    public function acb()
+    {
+
+    }
 }

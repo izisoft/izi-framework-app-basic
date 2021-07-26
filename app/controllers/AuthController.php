@@ -6,14 +6,14 @@
  */
 
 namespace app\controllers;
-
+use Izi;
 
 use izi\middlewares\AuthMiddleware;
 use izi\base\Request;
 use izi\base\Response;
 use app\models\LoginForm;
 use app\models\User;
-use izi\base\Application;
+
 
 /**
  * Class AuthController
@@ -63,7 +63,7 @@ class AuthController extends Controller
             $user->loadData($request->getBody());
 
             if($user->validate() && $user->save()){
-                Application::$app->session->setFlash('success', 'Thank for register!');
+                Izi::$app->session->setFlash('success', 'Thank for register!');
                 $response->redirect('/');
                 exit;
             }
@@ -78,7 +78,7 @@ class AuthController extends Controller
     public function logout(Request $request, Response $response)
     {
         $this->setLayout('auth');
-        Application::$app->logout();
+        Izi::$app->logout();
         $response->redirect('/');
         exit;
     }

@@ -6,8 +6,7 @@
  */
 
 namespace app\controllers;
-
-use izi\base\Application;
+use Izi;
 use izi\middlewares\BaseMiddleware;
 
 /**
@@ -17,7 +16,7 @@ use izi\middlewares\BaseMiddleware;
  * @author Giang A Tin <vantruong1898@gmail.com>
  * @since 1.0
  */
-class Controller extends \izi\base\Controller
+class Controller extends \izi\web\Controller
 {
 
     public string $layout = 'main';
@@ -31,8 +30,7 @@ class Controller extends \izi\base\Controller
 
     public function render($view, $params = [])
     {
-
-        return Application::$app->view->renderView($view, $params);
+        return Izi::$app->view->renderView($view, $params);
     }
 
     public function setLayout(string $layout)
